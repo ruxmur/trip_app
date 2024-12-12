@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:trip_application/models/Trip.dart';
 import 'package:trip_application/screens/details.dart';
@@ -26,9 +28,14 @@ class _TripListState extends State<TripList> {
       Trip(title: 'Space Blast', price: '600', nights: '4', img: 'space.png'),
     ];
 
+    Future ft = Future((){});
     trips.forEach((Trip trip) {
-      _tripTiles.add(_buildTile(trip));
-      _listKey.currentState?.insertItem(_tripTiles.length - 1);
+      ft = ft.then((_) {
+        return Future.delayed(const Duration(milliseconds: 100)).then((_) {
+          _tripTiles.add(_buildTile(trip));
+          _listKey.currentState?.insertItem(_tripTiles.length - 1);
+        });
+      });
     });
   }
 
